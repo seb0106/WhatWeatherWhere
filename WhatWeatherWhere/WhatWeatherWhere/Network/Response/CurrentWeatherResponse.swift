@@ -5,14 +5,14 @@
 import Foundation
 
 struct CurrentWeatherData: Codable{
-    let coordination: Coordination
+    let coord: Coordination?
     let weather: [Weather]
-    let base: String
-    let main: MainValues
-    let visibility: Int
-    let wind: Wind
+    let base: String?
+    let main: MainValues?
+    let visibility: Int?
+    let wind: Wind?
     let clouds: Cloud?
-    let sys: Sys
-    let name: String
-    let cod: Int
+    let sys: Sys?
+    let name: String?
+    let cod: Int?
 }

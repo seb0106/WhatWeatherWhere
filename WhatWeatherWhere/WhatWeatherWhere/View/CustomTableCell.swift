@@ -7,4 +7,6 @@ import UIKit
 
 class CustomTableCell: UITableViewCell {
     
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
 }

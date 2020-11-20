@@ -11,7 +11,7 @@ class CurrentWeatherClient {
     }
     
     enum endpoint {
-        static var base = "api.openweathermap.org/data/2.5/"
+        static var base = "https://api.openweathermap.org/data/2.5/"
         case currentWeather(Double, Double)
         
         var stringValue: String{
