@@ -50,7 +50,6 @@
                                 <connections>
                                     <outlet property="dateLabel" destination="Cyt-ps-kio" id="Jdy-KH-ZZf"/>
                                     <outlet property="locationLabel" destination="P1q-OZ-xNe" id="NR2-EB-yMP"/>
-                                    <segue destination="HLG-bJ-8vL" kind="show" identifier="showDetail" id="lGY-bb-qwo"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -71,33 +70,34 @@
         <!--Weather Detail View Controller-->
         <scene sceneID="h2A-xv-HAi">
             <objects>
-                <tableViewController id="HLG-bJ-8vL" customClass="WeatherDetailViewController" customModule="WhatWeatherWhere" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="id" id="HLG-bJ-8vL" customClass="WeatherDetailViewController" customModule="WhatWeatherWhere" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Bvn-C0-0KK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailCell" rowHeight="81" id="0GY-o8-bBa" customClass="CustomDetailCell" customModule="WhatWeatherWhere" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="81" id="0GY-o8-bBa" customClass="CustomDetailCell" customModule="WhatWeatherWhere" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="81"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0GY-o8-bBa" id="iQP-Bu-RBG">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="81"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2y-l6-gqn">
-                                            <rect key="frame" x="20" y="49" width="394" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8TO-uI-8ti">
                                             <rect key="frame" x="20" y="0.0" width="394" height="41"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2y-l6-gqn">
+                                            <rect key="frame" x="20" y="49" width="394" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Y2y-l6-gqn" secondAttribute="bottom" constant="11" id="MWd-bL-JVG"/>
                                         <constraint firstItem="Y2y-l6-gqn" firstAttribute="leading" secondItem="iQP-Bu-RBG" secondAttribute="leading" constant="20" symbolic="YES" id="Pi9-OQ-j1h"/>
                                         <constraint firstItem="Y2y-l6-gqn" firstAttribute="top" secondItem="iQP-Bu-RBG" secondAttribute="top" constant="49" id="bla-Tz-EN9"/>
                                         <constraint firstAttribute="bottom" secondItem="8TO-uI-8ti" secondAttribute="bottom" constant="40" id="dww-Wj-Wmv"/>
