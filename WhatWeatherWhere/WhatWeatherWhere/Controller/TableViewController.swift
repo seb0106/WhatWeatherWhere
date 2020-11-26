@@ -93,11 +93,6 @@ extension TableViewController: UISearchResultsUpdating{
         setupFetchedResultsControllerWeatherData()
         let dateFormatter = DateFormatter()
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! CustomTableCell
-        /*if let data = fetchedResultsController.fetchedObjects{
-            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-            cell.locationLabel?.text = data[indexPath.item].weather?.name
-            cell.dateLabel?.text = dateFormatter.string(from: data[indexPath.item].date ?? Date())
-        }*/
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
         cell.locationLabel?.text = annotations[indexPath.item].weather?.name
         cell.dateLabel?.text = dateFormatter.string(from: annotations[indexPath.item].date ?? Date())
@@ -115,11 +110,10 @@ extension TableViewController: UISearchResultsUpdating{
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-         //   appDelegate.dataController.viewContext.delete(annotations[indexPath.item] as! NSManagedObject)
-            print("Delete", annotations[indexPath.row])
-            annotations.remove(at: indexPath.row)
-         //   try? appDelegate.dataController.viewContext.save()
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            appDelegate.dataController.viewContext.delete(annotations[indexPath.row])
+               annotations.remove(at: indexPath.row)
+               setupFetchedResultsControllerPin()
+               self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

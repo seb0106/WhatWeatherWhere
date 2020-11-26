@@ -7,23 +7,23 @@ import UIKit
 class WeatherDetailViewController: UITableViewController{
     var weather: WeatherData?
     var weatherTitle = [
-        "Name",
-        "Beschreibung",
-        "Temperatur",
-        "Max-Temperatur",
-        "Mindest-Temperatur",
+        "Location",
+        "Destricption",
+        "Temperature",
+        "Max-temperature",
+        "Min-temperature",
     ]
     var weatherData: [ String] = []
    override func viewDidLoad() {
         super.viewDidLoad()
-    weather?.tempMin = weather?.tempMin ?? 0 - 273.15
-    weather?.tempMax = weather?.tempMax ?? 0 - 273.15
-    weather?.tempNow = weather?.tempNow ?? 0 - 273.15
+    weather?.tempMin = round((weather?.tempMin ?? 0) - 273.15)
+    weather?.tempMax = round((weather?.tempMax ?? 0) - 273.15)
+    weather?.tempNow = round((weather?.tempNow ?? 0) - 273.15)
     weatherData.append(weather?.name ?? "")
     weatherData.append(weather?.descriptionOfWeather ?? "")
-    weatherData.append(weather?.tempNow.description ?? "")
-    weatherData.append(weather?.tempMax.description ?? "")
-    weatherData.append(weather?.tempMin.description ?? "")
+    weatherData.append((weather?.tempNow.description ?? "") + "℃")
+    weatherData.append((weather?.tempMax.description ?? "") + "℃")
+    weatherData.append((weather?.tempMin.description ?? "") + "℃")
     }
     
     func convertObjectToArray(){

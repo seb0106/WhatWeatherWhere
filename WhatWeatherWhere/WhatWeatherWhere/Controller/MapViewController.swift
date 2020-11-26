@@ -31,18 +31,23 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
         longPressed.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPressed)
         appDelegate.dataController.load()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         setupFetchedResultsController()
         setupPins()
     }
     
     func setupPins(){
         if let pins = fetchedResultsController.fetchedObjects {
+            pinArray = []
             for pin in pins {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate.latitude = pin.lat
                 annotation.coordinate.longitude = pin.lon
                 pinArray.append(annotation)
             }
+            mapView.removeAnnotations(pinArray)
             mapView.addAnnotations(pinArray)
         }
     }
@@ -81,7 +86,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
         for pin in annotations {
             if pin.lat == selectedPin?.coordinate.latitude &&
                 pin.lon == selectedPin?.coordinate.longitude {
-                            mapView.removeAnnotation(selectedPin as! MKAnnotation)
+                mapView.removeAnnotation(selectedPin as! MKAnnotation)
                 appDelegate.dataController.viewContext.delete(pin as! NSManagedObject)
                 
                 try? appDelegate.dataController.viewContext.save()
@@ -113,6 +118,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
                 pin.lon = lon
                 DataModelPins.pins.append(pin)
                 try? self.appDelegate.dataController.viewContext.save()
+               
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "id") as! WeatherDetailViewController
+                if let data = self.fetchedResultsController.fetchedObjects{
+                    vc.weather = data[data.endIndex - 1].weather
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
         }
         setupFetchedResultsController()
@@ -123,6 +134,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
 extension MapViewController{
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         deleteButton.isHidden = false
+        
         selectedPin = view.annotation
     }
     
