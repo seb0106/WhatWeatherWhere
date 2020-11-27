@@ -9,14 +9,14 @@ import UIKit
 class TableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     
-     var fetchedResultsController : NSFetchedResultsController<Pin>!
+    var fetchedResultsController : NSFetchedResultsController<Pin>!
     var fetchedWeatherController: NSFetchedResultsController<WeatherData>!
     var annotations = [Pin]()
     var selectedIndex = 0
     let searchController = UISearchController(searchResultsController: nil)
     var filteredPins: [Pin] = []
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,26 +66,20 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
             print("There was a problem with fetching: \(error.localizedDescription)")
         }
     }
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-  
-
 }
 
 extension TableViewController: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
-            if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-                if let data = fetchedResultsController.fetchedObjects{
-                    data.filter{ (pin) in
-                       return (pin.weather?.name?.contains(searchText) ?? true)
-                    }
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            if let data = fetchedResultsController.fetchedObjects{
+                data.filter{ (pin) in
+                    return (pin.weather?.name?.contains(searchText) ?? true)
                 }
             }
-            self.tableView.reloadData()
-      }
-       
+        }
+        self.tableView.reloadData()
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.fetchedObjects?.count ?? DataModelPins.pins.count
     }
@@ -111,9 +105,9 @@ extension TableViewController: UISearchResultsUpdating{
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             appDelegate.dataController.viewContext.delete(annotations[indexPath.row])
-               annotations.remove(at: indexPath.row)
-               setupFetchedResultsControllerPin()
-               self.tableView.deleteRows(at: [indexPath], with: .fade)
+            annotations.remove(at: indexPath.row)
+            setupFetchedResultsControllerPin()
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -14,23 +14,29 @@ class WeatherDetailViewController: UITableViewController{
         "Min-temperature",
     ]
     var weatherData: [ String] = []
-   override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
-    weather?.tempMin = round((weather?.tempMin ?? 0) - 273.15)
-    weather?.tempMax = round((weather?.tempMax ?? 0) - 273.15)
-    weather?.tempNow = round((weather?.tempNow ?? 0) - 273.15)
-    weatherData.append(weather?.name ?? "")
-    weatherData.append(weather?.descriptionOfWeather ?? "")
-    weatherData.append((weather?.tempNow.description ?? "") + "℃")
-    weatherData.append((weather?.tempMax.description ?? "") + "℃")
-    weatherData.append((weather?.tempMin.description ?? "") + "℃")
-    }
-    
-    func convertObjectToArray(){
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if weather?.tempNow ?? 273.15 >= 234.15 {
+            weather?.tempMin = round((weather?.tempMin ?? 273.15) - 273.15)
+            weather?.tempMax = round((weather?.tempMax ?? 273.15) - 273.15)
+            weather?.tempNow = round((weather?.tempNow ?? 273.15) - 273.15)
+            
+        }
+        else if   weather?.tempNow ?? 0 <= -240{
+            weather?.tempMin = round((weather?.tempMin ?? 273.15) + 273.15)
+            weather?.tempMax = round((weather?.tempMax ?? 273.15) + 273.15)
+            weather?.tempNow = round((weather?.tempNow ?? 273.15) + 273.15)
+        }
+        else {
+            weather?.tempMin = weather?.tempMin ?? 0
+            weather?.tempMax = weather?.tempMax ?? 0
+            weather?.tempNow = weather?.tempNow ?? 0
+        }
+        weatherData.append(weather?.name ?? "")
+        weatherData.append(weather?.descriptionOfWeather ?? "")
+        weatherData.append((weather?.tempNow.description ?? "") + "℃")
+        weatherData.append((weather?.tempMax.description ?? "") + "℃")
+        weatherData.append((weather?.tempMin.description ?? "") + "℃")
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -44,5 +50,5 @@ class WeatherDetailViewController: UITableViewController{
     }
     
     
-     
+    
 }

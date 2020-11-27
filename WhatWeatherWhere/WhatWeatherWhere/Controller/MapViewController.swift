@@ -9,6 +9,7 @@ import CoreData
 
 class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognizerDelegate, NSFetchedResultsControllerDelegate {
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var annotations = [Pin]()
     var pinArray = [MKPointAnnotation]()
@@ -31,11 +32,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
         longPressed.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPressed)
         appDelegate.dataController.load()
+        setupFetchedResultsController()
+        setupPins()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        setupFetchedResultsController()
-        setupPins()
+        super.viewDidAppear(animated)
+     
     }
     
     func setupPins(){
@@ -99,9 +102,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
     func addPin(lat: Double, lon: Double){
         let pin = Pin(context: appDelegate.dataController.viewContext)
         let Weather = WeatherData(context: appDelegate.dataController.viewContext)
+        
+        activityIndicator.startAnimating()
         CurrentWeatherClient.getCurrentWeather(lat: lat, lon: lon){
             response, error in
             if error != nil{
+                self.showLoadFailure(message: "There was a  problem with the Request. " + (error?.localizedDescription ?? ""))
                 print(error)
             } else{
                 DataModel.weatherData = (response.self)
@@ -117,6 +123,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
                 pin.date = Date()
                 pin.lon = lon
                 DataModelPins.pins.append(pin)
+                self.activityIndicator.hidesWhenStopped = true
+                self.activityIndicator.stopAnimating()
                 try? self.appDelegate.dataController.viewContext.save()
                
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "id") as! WeatherDetailViewController
@@ -127,6 +135,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, UIGestureRecognize
             }
         }
         setupFetchedResultsController()
+    }
+    func showLoadFailure(message: String) {
+        let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        print(message)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alertVC, animated: true, completion: nil)
     }
 }
 

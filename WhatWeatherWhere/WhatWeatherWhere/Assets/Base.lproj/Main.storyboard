@@ -166,12 +166,17 @@
                                     <action selector="deletePin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pXr-oh-7c2"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="LyB-6n-idn">
+                                <rect key="frame" x="197" y="424" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="x3k-N0-4RN"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="LyB-6n-idn" id="FvC-QV-9AF"/>
                         <outlet property="deleteButton" destination="VMi-41-g1M" id="Bas-Ov-rF3"/>
                         <outlet property="mapView" destination="sWh-QG-dHA" id="OfP-VM-Dld"/>
                     </connections>
