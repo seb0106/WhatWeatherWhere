@@ -3,7 +3,7 @@
 Here is a brief introduction of the WhatWeatherWhere app.
 
 You can find the weather of a place on the map and save it on the app. Like that you can always look where on the world what weather is, only one click and there
-you have it.
+you have it. There are maybe some complication with the API response, sometimes the temperature isn't right but there can't I do much. 
 
 ## Implementation
 
